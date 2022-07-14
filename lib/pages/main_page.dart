@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -142,11 +143,11 @@ class _MyHomePageState extends State<MyHomePage> {
         ));
   }
 
-  int createCustomDialog(int diff) {
+  double createCustomDialog(int diff) {
     Timer _timer;
-    int _start = 45;
-    widget.time = _start.toString();
+    double _start = 30.000;
     bool pressed = false;
+    int _startDisplay = _start.toInt();
 
     bool visibleBool = false;
     double? height = 175;
@@ -207,27 +208,29 @@ class _MyHomePageState extends State<MyHomePage> {
                           MaterialButton(
                               onPressed: () {
                                 pressed = !pressed;
-                                void StartTimer(int dur) {
-                                  Duration duration = Duration(seconds: dur);
+                                void StartTimer() {
+                                  Duration duration = Duration(milliseconds: 1);
                                   _timer = Timer.periodic(
                                       duration,
                                       (Timer timer) => setState(() {
-                                            debugPrint(pressed.toString());
                                             if (_start == 0) {
                                               timer.cancel();
                                               debugPrint(_start.toString());
+                                              _startDisplay = _start.toInt();
                                             } else if (pressed == false) {
                                               timer.cancel();
-                                              _start = 45;
+                                              _start = 30.000;
+                                              _startDisplay = _start.toInt();
                                             } else if (_start != 0 &&
                                                 pressed == true) {
-                                              _start--;
+                                              _start = _start - 0.0025;
+                                              _startDisplay = _start.toInt();
                                             }
                                           }));
                                 }
 
                                 if (pressed) {
-                                  StartTimer(1);
+                                  StartTimer();
                                 }
                               },
                               color: Colors.yellow,
@@ -246,7 +249,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                '$_start',
+                                _startDisplay.toString(),
                                 style: TextStyle(
                                     fontSize: 20, color: Colors.white),
                               ),
@@ -255,13 +258,17 @@ class _MyHomePageState extends State<MyHomePage> {
                                 minWidth: 30,
                                 onPressed: () {
                                   setState(() {
-                                    if (_start < 90) {
-                                      _start = _start + 15;
+                                    if (_start < 90.000) {
+                                      _start = _start + 15.000;
+                                      _startDisplay = _start.toInt();
+                                    } else if (_start > 90.000) {
+                                      _start = 90.000;
+                                      _startDisplay = _start.toInt();
                                     } else {
-                                      _start = 45;
+                                      _start = 30.000;
+                                      _startDisplay = _start.toInt();
                                     }
-
-                                    debugPrint('$_start');
+                                    debugPrint('$_startDisplay');
                                   });
                                 },
                                 child: Icon(Icons.arrow_upward_outlined),
