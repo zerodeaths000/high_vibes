@@ -199,17 +199,6 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(children: [
               MaterialButton(
                 onPressed: () {
-                  setState(() {
-                    time = 'changeee';
-                    if (_start == 0) {
-                      _start = 45;
-                      StartTimer(1);
-                    } else if (_start == 45) {
-                      StartTimer(1);
-                    } else {
-                      //Nothing
-                    }
-                  });
                   StartTimer(1);
                 },
                 color: Colors.yellow,
