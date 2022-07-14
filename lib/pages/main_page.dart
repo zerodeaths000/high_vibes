@@ -146,29 +146,17 @@ class _MyHomePageState extends State<MyHomePage> {
     Timer _timer;
     int _start = 45;
     widget.time = _start.toString();
-
-    void StartTimer(int dur) {
-      Duration duration = Duration(seconds: dur);
-      _timer = Timer.periodic(
-          duration,
-          (Timer timer) => setState(() {
-                if (_start == 0) {
-                  timer.cancel();
-                  debugPrint(_start.toString());
-                } else {
-                  _start = _start - 1;
-                  debugPrint(_start.toString());
-                }
-              }));
-    }
+    bool pressed = false;
 
     bool visibleBool = false;
     double? height = 175;
     String text = rollChallange(diff);
-    if (text.endsWith('HA NEM MEGY 3 KÖRBŐL KIMARADSZ')) {
+    if (text.contains('60 MASODPERCIG') ||
+        text.contains('30 MASODPERCIG') ||
+        text.contains('30 SECIG')) {
       visibleBool = true;
       if (visibleBool) {
-        height = 250;
+        height = 300;
       }
     }
     AlertDialog challange = AlertDialog(
@@ -203,14 +191,92 @@ class _MyHomePageState extends State<MyHomePage> {
           Visibility(
               maintainSize: false,
               visible: visibleBool,
-              child: Column(children: [
-                Padding(padding: EdgeInsets.only(top: 50)),
-                Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.yellow, width: 5)),
-                  child: Text('FASZ'),
-                ),
-              ]))
+              child: StatefulBuilder(
+                builder: ((context, setState) {
+                  return Column(children: [
+                    Padding(padding: EdgeInsets.only(top: 25)),
+                    Container(
+                      alignment: Alignment.center,
+                      height: 121,
+                      width: 200,
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.yellow, width: 5),
+                          borderRadius: BorderRadius.all(Radius.circular(7))),
+                      child: Column(
+                        children: [
+                          MaterialButton(
+                              onPressed: () {
+                                pressed = !pressed;
+                                void StartTimer(int dur) {
+                                  Duration duration = Duration(seconds: dur);
+                                  _timer = Timer.periodic(
+                                      duration,
+                                      (Timer timer) => setState(() {
+                                            debugPrint(pressed.toString());
+                                            if (_start == 0) {
+                                              timer.cancel();
+                                              debugPrint(_start.toString());
+                                            } else if (pressed == false) {
+                                              timer.cancel();
+                                              _start = 45;
+                                            } else if (_start != 0 &&
+                                                pressed == true) {
+                                              _start--;
+                                            }
+                                          }));
+                                }
+
+                                if (pressed) {
+                                  StartTimer(1);
+                                }
+                              },
+                              color: Colors.yellow,
+                              child: RichText(
+                                text: TextSpan(children: [
+                                  TextSpan(
+                                      text: 'KEZDÉS  ',
+                                      style: TextStyle(color: Colors.black)),
+                                  WidgetSpan(
+                                      child: Icon(Icons.arrow_circle_right),
+                                      style: TextStyle(fontSize: 27)),
+                                ]),
+                              )),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                '$_start',
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white),
+                              ),
+                              Padding(padding: EdgeInsets.only(left: 5)),
+                              MaterialButton(
+                                minWidth: 30,
+                                onPressed: () {
+                                  setState(() {
+                                    if (_start < 90) {
+                                      _start = _start + 15;
+                                    } else {
+                                      _start = 45;
+                                    }
+
+                                    debugPrint('$_start');
+                                  });
+                                },
+                                child: Icon(Icons.arrow_upward_outlined),
+                                color: Colors.yellow,
+                              )
+                            ],
+                          )
+                        ],
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                      ),
+                    ),
+                  ]);
+                }),
+              ))
         ]),
       ),
     );

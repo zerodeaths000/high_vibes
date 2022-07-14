@@ -31,7 +31,6 @@ String rollChallange(int difficulity) {
   var diff5Array = [
     'TUDOBE AMIG BIROD, ES TARTSD LENT 30 SECIG, HA KÖHÖGSZ 1 KÖRBŐL KIMARADSZ',
     '60 MÁSODPERCIG TARSTD LENT A KÖVETKEUŐT, HA NEM MEGY 3 KÖRBŐL KIMARADSZ',
-    'ASDASDASDASDASDASD'
   ];
   var diffAll = [];
   Random rand = Random();
