@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,6 +7,8 @@ import 'package:unitix/challange/challangeGiver.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key}) : super(key: key);
+
+  late String time;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -141,31 +142,35 @@ class _MyHomePageState extends State<MyHomePage> {
         ));
   }
 
-  void createCustomDialog(int diff) {
+  int createCustomDialog(int diff) {
     Timer _timer;
     int _start = 45;
-    bool pressed = false;
-    String time = _start.toString();
+    widget.time = _start.toString();
 
     void StartTimer(int dur) {
       Duration duration = Duration(seconds: dur);
-      _timer = Timer.periodic(duration, (Timer timer) {
-        if (_start == 0) {
-          setState(() {
-            timer.cancel();
-            debugPrint(_start.toString());
-          });
-        } else {
-          setState(() {
-            _start--;
-            time = _start.toString();
-            debugPrint(time);
-          });
-        }
-      });
+      _timer = Timer.periodic(
+          duration,
+          (Timer timer) => setState(() {
+                if (_start == 0) {
+                  timer.cancel();
+                  debugPrint(_start.toString());
+                } else {
+                  _start = _start - 1;
+                  debugPrint(_start.toString());
+                }
+              }));
     }
 
+    bool visibleBool = false;
+    double? height = 175;
     String text = rollChallange(diff);
+    if (text.endsWith('HA NEM MEGY 3 KÖRBŐL KIMARADSZ')) {
+      visibleBool = true;
+      if (visibleBool) {
+        height = 250;
+      }
+    }
     AlertDialog challange = AlertDialog(
       title: Text(
         'CHALLANGE:',
@@ -173,7 +178,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       backgroundColor: Color.fromARGB(255, 38, 38, 38),
       content: Container(
-        height: 250,
+        height: height,
         width: 150,
         child: Column(children: [
           Container(
@@ -195,26 +200,21 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ],
               )),
-          Container(
-            child: Column(children: [
-              MaterialButton(
-                onPressed: () {
-                  if (_start == 45) {
-                    StartTimer(1);
-                  }
-                },
-                color: Colors.yellow,
-                child: Text('asd'),
-              ),
-              Text(
-                time,
-                style: TextStyle(fontSize: 40, color: Colors.white),
-              )
-            ]),
-          )
+          Visibility(
+              maintainSize: false,
+              visible: visibleBool,
+              child: Column(children: [
+                Padding(padding: EdgeInsets.only(top: 50)),
+                Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.yellow, width: 5)),
+                  child: Text('FASZ'),
+                ),
+              ]))
         ]),
       ),
     );
     showDialog(context: context, builder: (context) => challange);
+    return _start;
   }
 }
