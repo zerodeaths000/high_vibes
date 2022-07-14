@@ -157,9 +157,9 @@ class _MyHomePageState extends State<MyHomePage> {
           });
         } else {
           setState(() {
-            debugPrint(_start.toString());
             _start--;
             time = _start.toString();
+            debugPrint(time);
           });
         }
       });
@@ -199,14 +199,16 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(children: [
               MaterialButton(
                 onPressed: () {
-                  StartTimer(1);
+                  if (_start == 45) {
+                    StartTimer(1);
+                  }
                 },
                 color: Colors.yellow,
                 child: Text('asd'),
               ),
               Text(
                 time,
-                style: TextStyle(fontSize: 40),
+                style: TextStyle(fontSize: 40, color: Colors.white),
               )
             ]),
           )
