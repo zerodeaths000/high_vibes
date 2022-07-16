@@ -5,32 +5,32 @@ import 'package:flutter/cupertino.dart';
 
 String rollChallange(int difficulity) {
   var diff1Array = [
-    '1 KÖRBŐL KIMARADSZ',
-    'KÖVI CIGIBE BELE KELL ADNOD 500FT-OT, HA NEM ADSZ BELE CSART',
-    'KÖVI CIGIT TE TEKERED',
+    '1 körből kimaradsz',
+    'Kövi cigibe bele kell adnod 500ft-ot, ha nem adsz bele csart',
+    'Kövi cigit te tekered',
     'FREESTYLE!',
-    'ORDOGKOR 1 KORIG, INDUL.. MOST!',
-    'KÖVI CIGI LIGHTY CIGI'
+    'Ordogkor 1 korig, indul.. Most!',
+    'Kövi cigi lighty cigi'
   ];
   var diff2Array = [
-    '2 KÖRBŐL KIMARADSZ',
-    'KÖVI CIGIBE TÖBBE ADSZ MINT EBBE',
-    'ORDOGKOR 2 KORIG, INDUL..MOST!',
-    '3 SLUKK UTAN POROGJ A LABAIDON 30 MASODPERCIG'
+    '2 körből kimaradsz',
+    'Kövi cigibe többe adsz mint ebbe',
+    'Ordogkor 2 korig, indul..Most!',
+    '3 slukk utan porogj a labaidon 30 masodpercig'
   ];
   var diff3Array = [
-    '5 KÖRIG MINDEN SLUKKNÁL GHOSTOLNOD KELL, HA ELSZÁLL KOVI KORBOL KIMARADSZ',
-    'VÁLTSATOK SPOTOT!',
-    'AKI A LEGJOBBAN BESZAKADT SZIVJON KETTOT MOST!',
-    'SZAJBA AKKORA SLUKK AMEKKORAT CSAK BIRSZ'
+    '5 körig minden slukknál ghostolnod kell, ha elszáll kovi korbol kimaradsz',
+    'Váltsatok spotot!',
+    'Aki a legjobban beszakadt szivjon kettot most!',
+    'Szajba akkora slukk amekkorat csak birsz'
   ];
   var diff4Array = [
-    'A CIGI VEGEIG ORDOGKOR',
-    'AKI ALIG VAN BESZAKADVA SZIVJON 3 SLUKKOT ES TARTSA LENT 30 MASODPERCIG'
+    'A cigi vegeig ordogkor',
+    'Aki alig van beszakadva szivjon 3 slukkot es tartsa lent 30 masodpercig'
   ];
   var diff5Array = [
-    'TUDOBE AMIG BIROD, ES TARTSD LENT 30 SECIG, HA KÖHÖGSZ 1 KÖRBŐL KIMARADSZ',
-    '60 MÁSODPERCIG TARSTD LENT A KÖVETKEUŐT, HA NEM MEGY 3 KÖRBŐL KIMARADSZ',
+    'Tudobe amig birod, es tartsd lent 30 secig, ha köhögsz 1 körből kimaradsz',
+    '60 másodpercig tarstd lent a következőt, ha nem megy 3 körből kimaradsz',
   ];
   var diffAll = [];
   Random rand = Random();

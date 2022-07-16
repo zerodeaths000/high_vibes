@@ -98,3 +98,6 @@ flutter:
     - family: Yanone
       fonts:
         - asset: assets/fonts/Yanone.ttf
+    - family: Kanit
+      fonts:
+        - asset: assets/fonts/Kanit-ExtraBoldItalic.ttf
