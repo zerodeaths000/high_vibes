@@ -19,8 +19,7 @@ class VideoPlayerScreen extends StatefulWidget {
 class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   final asset = "assets/leaf_splash.mp4";
   late Timer _valueTimer;
-  late Duration _pageTimeDuration = Duration(microseconds: 1);
-  int _pageTime = 0;
+  double _pageTime = 0;
   double valueIndicator = 0.0;
 
   @override
@@ -33,15 +32,16 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
 
   @override
   void navigate() async {
-    _valueTimer = Timer.periodic(_pageTimeDuration, (timer) {
+    _valueTimer = Timer.periodic(Duration(milliseconds: 1), (timer) {
       setState(() {
-        if (_pageTime == 10000) {
+        if (_pageTime >= 10000) {
           timer.cancel();
           Navigator.of(context).push(SlidePageRoute(child: MyHomePage()));
         } else {
-          _pageTime++;
+          _pageTime = _pageTime + 2.7;
           debugPrint(_pageTime.toString());
           valueIndicator = _pageTime / 10000;
+          debugPrint(valueIndicator.toString());
         }
       });
     });
@@ -62,7 +62,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
             height: 30,
             child: LiquidLinearProgressIndicator(
               backgroundColor: Colors.black,
-              valueColor: AlwaysStoppedAnimation(Colors.greenAccent),
+              valueColor: AlwaysStoppedAnimation(Colors.green),
               borderColor: Colors.white,
               borderWidth: 1,
               direction: Axis.horizontal,

@@ -6,7 +6,7 @@ class SlidePageRoute extends PageRouteBuilder {
   SlidePageRoute({required this.child})
       : super(
             pageBuilder: (context, anim, secondAnim) => child,
-            transitionDuration: Duration(milliseconds: 1000));
+            transitionDuration: Duration(milliseconds: 700));
 
   @override
   Widget buildTransitions(BuildContext context, Animation<double> animation,

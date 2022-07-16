@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:ffi';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
@@ -143,9 +144,12 @@ class _MyHomePageState extends State<MyHomePage> {
         ));
   }
 
-  double createCustomDialog(int diff) {
+  void createCustomDialog(int diff) {
+    AudioPlayer player = AudioPlayer();
+    AssetSource soundSource = AssetSource('exhale.mp3');
+
     Timer _timer;
-    double _start = 30.000;
+    double _start = 5.000;
     bool pressed = false;
     int _startDisplay = _start.toInt();
 
@@ -209,21 +213,24 @@ class _MyHomePageState extends State<MyHomePage> {
                               onPressed: () {
                                 pressed = !pressed;
                                 void StartTimer() {
-                                  Duration duration = Duration(milliseconds: 1);
+                                  Duration duration =
+                                      Duration(milliseconds: 10);
                                   _timer = Timer.periodic(
                                       duration,
                                       (Timer timer) => setState(() {
-                                            if (_start == 0) {
+                                            if (_start <= 0) {
                                               timer.cancel();
                                               debugPrint(_start.toString());
                                               _startDisplay = _start.toInt();
+                                              player.play(soundSource);
+                                              Navigator.pop(context);
                                             } else if (pressed == false) {
                                               timer.cancel();
                                               _start = 30.000;
                                               _startDisplay = _start.toInt();
                                             } else if (_start != 0 &&
                                                 pressed == true) {
-                                              _start = _start - 0.0025;
+                                              _start = _start - 0.01;
                                               _startDisplay = _start.toInt();
                                             }
                                           }));
@@ -288,6 +295,5 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
     showDialog(context: context, builder: (context) => challange);
-    return _start;
   }
 }
