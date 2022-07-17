@@ -104,11 +104,11 @@ class _ChallangeContainerState extends State<ChallangeContainer> {
 
     bool visibleBool = false;
     double? height = 213;
-    String text = rollChallange(diff);
+    String? text = rollChallange(diff);
     //String text = '60 masodpercig';
-    if (text.contains('60 masodpercig') ||
-        text.contains('30 masodpercig') ||
-        text.contains('30 secig')) {
+    if (text.toString().contains('60 masodpercig') ||
+        text.toString().contains('30 masodpercig') ||
+        text.toString().contains('30 secig')) {
       visibleBool = true;
       if (visibleBool) {
         height = 300;
@@ -288,7 +288,7 @@ class _ChallangeContainerState extends State<ChallangeContainer> {
                     height: 98,
                     alignment: Alignment.center,
                     child: Text(
-                      text,
+                      text.toString(),
                       style: TextStyle(
                           color: Colors.white,
                           fontFamily: 'Kanit',

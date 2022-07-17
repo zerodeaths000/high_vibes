@@ -2,8 +2,11 @@ import 'dart:ffi';
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-String rollChallange(int difficulity) {
+String? rollChallange(int difficulity) {
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   var diff1Array = [
     '1 körből kimaradsz',
     'Kövi cigibe bele kell adnod 500ft-ot, ha nem adsz bele csart',
@@ -35,6 +38,8 @@ String rollChallange(int difficulity) {
   var diffAll = [];
   Random rand = Random();
   var randomNumber;
+  String? newChallange;
+  String? oldChallange = '';
 
   List<String> diff1() {
     randomNumber = rand.nextInt(diff1Array.length - 1);
@@ -90,6 +95,5 @@ String rollChallange(int difficulity) {
   } else {
     debugPrint('Invalid Number');
   }
-
   return diffAll[randomNumber];
 }
